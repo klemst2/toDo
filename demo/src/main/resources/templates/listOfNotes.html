@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css"
+	rel="stylesheet">
+<link href="css/listOfNotes.css" rel="stylesheet">
+
+<script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<title>Insert title here</title>
+
+</head>
+<body>
+	<div class="container">
+		<table>
+			<tr>
+				<td><a th:href="@{'/addNote'}">[ ADD NOTE ]</a></td>
+				<td><a th:href="@{'/addRandom'}">[ ADD 5 RANDOM NOTES ]</a></td>
+				<td><a th:href="@{'/deleteAll'}">[ DELETE ALL NOTES ]</a></td>
+			</tr>
+		</table>
+
+		<br>
+		<h2 th:text="${infoListToDo}"></h2>
+		<table class="table table-hover table-sm">
+			<thead th:if="${isEmptyToDo} == false">
+				<tr>
+					<th scope="col"><a th:href="@{'/listOfNotes?sort=sortRandom'}">#</a></th>
+					<th scope="col"><a th:href="@{'/listOfNotes?sort=sortById'}">ID</a></th>
+					<th scope="col"><a
+						th:href="@{'/listOfNotes?sort=sortByTitle'}">TITLE</a></th>
+					<th scope="col"><a
+						th:href="@{'/listOfNotes?sort=sortByDescription'}">DESCRIPTION</a></th>
+					<th scope="col"><a th:href="@{'/listOfNotes?sort=sortData'}">DATA
+							MADE</a></th>
+				</tr>
+			</thead>
+			<tbody th:each="note : ${listToDo}">
+				<tr>
+					<th scope="row" th:text="${listToDo.indexOf(note)+1}+'. '"></th>
+					<td th:text="${note.getId()}"></td>
+					<td th:text="${note.getTitle()}"></td>
+					<td th:text="${note.getDescription()}"></td>
+					<td th:text="${note.getTimestamp()}"></td>
+					<td><a th:href="@{'/edit/' + ${note.getId()}}"><button
+								type="button" class="btn btn-primary">EDIT</button></a></td>
+					<td><a th:href="@{'/delete/' + ${note.getId()}}"><button
+								type="button" class="btn btn-danger">DELETE</button></a></td>
+					<td><a
+						th:href="@{'/listOfNotes?addToDone=' + ${note.getId()}}"><button
+								type="button" class="btn btn-success">ADD TO DONE</button></a></td>
+				</tr>
+			</tbody>
+		</table>
+		<br>
+		<h2 th:text="${infoListDone}"></h2>
+		<table class="table table-hover table-sm">
+			<tbody th:each="note : ${listDone}">
+				<tr>
+					<td th:text="${'[ Id: ' + note.getId() + ' ]'}"></td>
+					<td th:text="${'[ Title: ' + note.getTitle() + ' ]'}"></td>
+					<td th:text="${'[ Description: ' + note.getDescription() + ' ]'}"></td>
+					<td><a th:href="@{'/delete/' + ${note.getId()}}"><button
+								type="button" class="btn btn-danger">DELETE</button></a></td>
+					<td><a th:href="@{'/undo/' + ${note.getId()}}"><button
+								type="button" class="btn btn-success">UNDO</button></a></td>
+				</tr>
+			</tbody>
+		</table>
+		<br> <br>
+		<form action="#" th:action="@{/listOfNotes}" method="get">
+			<table>
+				<tr>
+					<td><input type="text" placeholder="Search here" name="search"></td>
+					<td><input type="submit" value="search"></td>
+				</tr>
+			</table>
+		</form>
+		<p
+			th:text="${'Found ' + searchList.size() + ' results for ' + param.search}"
+			th:unless="${param.search == null}"></p>
+		<table class="table table-hover table-sm">
+			<tbody th:each="note : ${searchList}">
+				<tr>
+					<td th:text="${'[ Id: ' + note.getId() + ' ]'}"></td>
+
+					<td th:text="${'[ Title: ' + note.getTitle() + ' ]'}"></td>
+					<td th:text="${'[ Description: ' + note.getDescription() + ' ]'}"></td>
+					<td><a th:href="@{'/edit/' + ${note.getId()}}"><button
+								type="button" class="btn btn-primary">EDIT</button></a></td>
+					<td><a th:href="@{'/delete/' + ${note.getId()}}"><button
+								type="button" class="btn btn-danger">DELETE</button></a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

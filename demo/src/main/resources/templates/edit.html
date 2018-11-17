@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>[ EDIT ]</h1>
+
+	<form action="#" th:action="@{'/edit/' + ${note.getId()}}"
+		method="post" th:object="${note}">
+		<table>
+			<tr>
+				<td>Give title:</td>
+				<td><input type="text" th:field="*{title}"
+					th:value="${note.getTitle()}"></td>
+				<td th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Title
+					Error</td>
+			</tr>
+			<tr>
+				<td>Give description:</td>
+				<td><input type="text" th:field="*{description}"
+					th:value="${note.getDescription()}"></td>
+				<td th:if="${#fields.hasErrors('description')}"
+					th:errors="*{description}">Description Error</td>
+			</tr>
+			<tr>
+				<td><input type="submit" value="save"></td>
+			</tr>
+		</table>
+	</form>
+
+</body>
+</html>

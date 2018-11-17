@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>[ ADD NOTE ]</h1>
+
+	<form action="#" th:action="@{/addNote}" method="post"
+		th:object="${note}">
+		<table>
+			<tr>
+				<td>Give title:</td>
+				<td><input type="text" th:field="*{title}"></td>
+				<td th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Title
+					Error</td>
+			</tr>
+			<tr>
+				<td>Give description:</td>
+				<td><input type="text" th:field="*{description}"></td>
+				<td th:if="${#fields.hasErrors('description')}"
+					th:errors="*{description}">Description Error</td>
+			</tr>
+			<tr>
+				<td><input type="submit" value="add"></td>
+			</tr>
+		</table>
+
+	</form>
+
+</body>
+</html>
