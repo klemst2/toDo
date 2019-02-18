@@ -1,2 +1,3 @@
-# to do application in Spring Boot, using JPA, Tymeleaf, H2 Database. 
-# Contains methods like sorting, adding new, random adding, editing, deleting, adding to done, undo from done, seraching
+# The application task to do (Java, SpringBoot, Tymeleaf, H2, Spring Data, Bootstrap)
+the application allows to oparate on tasks using method like adding, deleting, editing, adding random, adding
+to done, undo from done, searching, sorting
